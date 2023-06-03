@@ -228,16 +228,16 @@ function populateVoiceList() {
   voices = synth.getVoices();
 
   for (const voice of voices) {
-    const option = document.createElement("option");
-    option.textContent = `${voice.name} (${voice.lang})`;
+    // const option = document.createElement("option");
+    // option.textContent = `${voice.name} (${voice.lang})`;
 
-    if (voice.default) {
-      option.textContent += " — DEFAULT";
-    }
+    // if (voice.default) {
+    //   option.textContent += " — DEFAULT";
+    // }
 
-    option.setAttribute("data-lang", voice.lang);
-    option.setAttribute("data-name", voice.name);
-    voiceSelect.appendChild(option);
+    // option.setAttribute("data-lang", voice.lang);
+    // option.setAttribute("data-name", voice.name);
+    voiceSelect.appendChild(new Option(voice.name.concat(" (", voice.lang, ")"), voice.name));
   }
 }
 
@@ -246,7 +246,7 @@ speakButton.addEventListener('click', function (e) {
   final_Text = inputText.innerText;
   const utterThis = new SpeechSynthesisUtterance(final_Text);
 
-  const selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+  const selectedOption = voiceSelect.value;
   for (const voice of voices) {
     if (voice.name === selectedOption) {
       utterThis.voice = voice;
